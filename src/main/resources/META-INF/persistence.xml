@@ -1,0 +1,43 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <!-- Define persistence unit -->
+    <persistence-unit name="persistence-unit" transaction-type="RESOURCE_LOCAL"> <!-- burdaki name bizim ucun onemlidi ve bunu isledeciyik -->
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql:/localhost:3306/jpa"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="AA12345aa!"/>
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/> <!-- biz deyirik ki, jpa arxasinda hibernate isledeciyik -->
+
+            <!-- <property name="hibernate.hbm2ddl.auto" value="update"/> -->
+            <property name="hibernate.hbm2ddl.auto" value="create"/> <!-- bununla biz deyirik ki, db'de
+            yeni table yarat, ancaq yuxaridaki kimi update istifade edeciyik ki, melumati update elesin yeniden table
+            yaratmasin, create biz indi istifade edeciyik ki, ilk defe yaradiriq axi-->
+
+            <property name="current_session_context_class" value="thread"/> <!-- db ile alis-verisin thread yolu ile oldugunu  deyirik -->
+
+            <property name="hibernate.show_sql" value="true"/> <!-- table falan create veya update edende db'ye gonderilen sorgulari gore bilelim deye -->
+            <property name="hibernate.format_sql" value="true"/> <!-- bunu false elesek query hibernate'in basqa dilinde yazilacaq, ama biz
+            bizim bildiyimiz kimi yazsin isteyirik misal: select veya insert kimi ona gore true etmeliyik bunu -->
+
+            <!-- C3P0 Connection_Provider -->
+            <property name="hibernate.connection.provider_class"
+                      value="org.hibernate.connection.C3P0ConnectionProvider"/>
+            <property name="hibernate.c3p0.min_size" value="1"/>
+            <property name="hibernate.c3p0.max_size" value="20"/>
+            <property name="hibernate.c3p0.acquire_increment" value="20"/>
+            <property name="hibernate.c3p0.max_statements" value="30"/>
+            <property name="hibernate.c3p0.timeout" value="600"/>
+            <property name="hibernate.c3p0.idle_test_period" value="1000"/>
+        </properties>
+    </persistence-unit>
+
+    <!-- persistence taglari arasinda birden cox  persistence-unit yaza bilerik
+        Misal: biz bezen mysql ve bezende oracle db isledirik deyekki
+        bu zaman biz ikinci bir persistence-unit yaziriq name hissesini deyisirik tebiiki
+        ve oracle qosulmaq ucun lazim olan bilgileri yaziriq ikinci persistence-unit'in icine. bu qeder sade :)
+     -->
+</persistence>
